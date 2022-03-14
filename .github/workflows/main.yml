@@ -30,20 +30,17 @@ jobs:
         run: echo Hello, world!
 
       # Runs a set of commands using the runners shell
-      - name: Markdown-HTML
-        # You may pin to the exact commit or the version.
-        # uses: ZacJW/markdown-html-action@3865edcff67a98f3984bd6312111f0d4deec57d4
-        uses: ZacJW/markdown-html-action@1.1.1
-        with:
-          # A JSON list of a list of paths to markdown files to render in to HTML files
-          input_files: "."
-          # A JSON list of paths to save the rendered HTML files to
-          output_files: "/docs"
-          # (boolean) Whether or not a file should be automatically excluded from being included more than once in a given output file
-          exclude_duplicates: true # default is true
-          # An optional path to a CSS file that will be included as a <style> block in every output file
-          builtin_stylesheet: true # default is 
-          # A JSON list of extensions to be passed to Python markdown
-          extensions: "['extra']" # default is ["extra"]
-          # A JSON object of extension configurations
-          extension_configs: "{}" # default is {}
+      name: Convert via Pandoc
+      runs-on: ubuntu-18.04
+      steps:
+        - uses: actions/checkout@v1
+        - run: mkdir output
+        - run: echo "foo" > input.txt
+        - uses: maxheld83/pandoc@v2
+          with:
+            args: "--standalone --output=output/index.html input.txt"
+        - uses: actions/upload-artifact@master
+          with:
+            name: output
+            path: output
+ 
