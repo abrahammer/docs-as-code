@@ -1,3 +1,4 @@
+``` mermaid
 sequenceDiagram
 	autonumber
   participant Developer
@@ -64,3 +65,4 @@ sequenceDiagram
   Developer -->> Surf Admins: Inform and complete of any post manual steps
   Developer -->> Change Management: Validate and close validation task
   Developer -->> Agile Development: Complete story
+```
