@@ -28,11 +28,6 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
-      - name: mermaid
-        uses: stefanzweifel/git-auto-commit-action@v4
-          with:
-            file_pattern: "*[.svg,.png]"
-            commit_message: automatically rendered mermaid diagrams
         
         
 
@@ -48,6 +43,13 @@ jobs:
         with:
           name: output
           path: output
-      - name: render-md-mermaid
-      - uses: nielsvaneck/render-md-mermaid@v2
- 
+      
+      
+      - name: Render images for every Mermaid diagram in all Markdown files (*.md) in the repo
+        uses: nielsvaneck/render-md-mermaid@v2
+
+      - name: Commit rendered png and svg files
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          file_pattern: "*[.svg,.png]"
+          commit_message: automatically rendered mermaid diagrams
